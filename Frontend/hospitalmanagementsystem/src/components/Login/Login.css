@@ -1,0 +1,39 @@
+.login {
+  background-image: linear-gradient(
+    to right top,
+    #051937,
+    #004d7a,
+    #008793,
+    #00bf72,
+    #a8eb12
+  );
+}
+.loginRquestfields {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.LoginTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 40px;
+}
+.signUpButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+}
+
+.inputfield {
+  width: 300px;
+  margin: 10px;
+  height: 35px;
+  border: 1px solid black;
+  border-radius: 50px;
+  text-align: center;
+}
