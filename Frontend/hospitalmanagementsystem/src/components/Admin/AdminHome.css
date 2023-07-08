@@ -16,7 +16,7 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  background-color: white;
+  background-color:plum;
   border-radius: 25px;
 }
 .hospitalValue {
@@ -31,13 +31,13 @@
 }
 .labelImage {
   padding: 15px;
-  width: 40px;
-  height: 40px;
+  width: 100px;
+  height: 100px;
 }
 .labelDiv {
   margin: 15px;
   border-radius: 50px;
-  background: #fff933;
+  background: #33ffa3;
 }
 .cardLabel {
   color: black;

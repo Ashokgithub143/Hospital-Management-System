@@ -7,16 +7,20 @@ function DoctorProfile() {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [user, setUser] = useState([]);
+
   useEffect(() => {
     getDoctorDetails();
     getUserDetails();
   }, []);
+
   var getDoctorDetails = () => {
+    var token = localStorage.getItem("token");
     fetch("http://localhost:5194/api/Doctor/GetDoctor?id=" + id, {
       method: "POST",
       headers: {
         accept: "text/plain",
         "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
     })
       .then(async (data) => {
@@ -27,6 +31,7 @@ function DoctorProfile() {
         console.log(err.error);
       });
   };
+
   var getUserDetails = () => {
     fetch("http://localhost:5194/api/User/GetAllUserDetails?id=+" + id, {
       method: "POST",
@@ -43,16 +48,15 @@ function DoctorProfile() {
         console.log(err.error);
       });
   };
+
   return (
     <div className="Doctor">
       <div className="doctorHeader">
-        <div className="">
-          <h2>Doctor Information</h2>
-        </div>
-        <div>
-          {localStorage.getItem("role") == "Patient" && (
+        <div className="d-flex align-items-center">
+          <h2 className="mr-auto">Doctor Information</h2>
+          {localStorage.getItem("role") === "Patient" && (
             <button
-              className="deleteDoctor editDoctor"
+              className="btn btn-primary ml-auto"
               onClick={() => {
                 navigate("/patient/$/approveddoctors/");
               }}
@@ -64,7 +68,7 @@ function DoctorProfile() {
       </div>
       <div className="aboutDoctor">
         <div>
-          <img src={DoctorImage} className="doctorImage" />
+          <img src={DoctorImage} className="doctorImage" alt="Doctor" />
         </div>
         <div>
           <div className="description">
@@ -82,7 +86,7 @@ function DoctorProfile() {
               </p>
               <div className="doctorInfo">
                 <div className="doctorInfoData">
-                  <h5>Specilization</h5>
+                  <h5>Specialization</h5>
                   <span>{data.specialization}</span>
                 </div>
                 <div className="doctorInfoData">
@@ -90,7 +94,7 @@ function DoctorProfile() {
                   <span>{data.licenseNumber}</span>
                 </div>
                 <div className="doctorInfoData">
-                  <h5>Qulifications</h5>
+                  <h5>Qualifications</h5>
                   <span>{data.qualifications}</span>
                 </div>
                 <div className="doctorInfoData">
@@ -113,4 +117,5 @@ function DoctorProfile() {
     </div>
   );
 }
+
 export default DoctorProfile;

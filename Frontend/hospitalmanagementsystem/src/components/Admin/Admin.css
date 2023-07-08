@@ -1,7 +1,4 @@
-.Admin {
-  display: grid;
-  grid-template-columns: 1fr 10fr;
-}
+
 .sideBar {
   display: flex;
   justify-content: center;
@@ -16,7 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-color: rgba(245, 245, 245, 0.994);
+  background-color:lightblue;
   border-radius: 50px;
 }
 .SideBar {
@@ -33,15 +30,31 @@
   align-items: center;
   margin: 10px;
   padding: 15px;
-  background-color: rgba(245, 245, 245, 0.573);
+  background-color:forestgreen;
   border-radius: 50%;
   border: black;
 }
 .navImage {
-  width: 20px;
-  height: 20px;
+  width: 35px;
+  height: 35px;
+  margin-left: 75px;
+  
 }
 .userImage {
   width: 60px;
   height: 60px;
 }
+.nav-item:hover {
+  background-color: lightgray;
+}
+
+.nav{
+  font-family:'Times New Roman', Times, serif;
+  margin-left: 75px;
+}
+.navbar-brand{
+  justify-content: center;
+  
+
+}
+

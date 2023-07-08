@@ -8,18 +8,20 @@ function Doctors() {
   const [id, setId] = useState();
   const [status, setStatus] = useState();
   const [data, setData] = useState([]);
+
+
   useEffect(() => {
     viewDoctors();
   }, []);
+
   var GetUsersByStatus = (value) => {
     var token = localStorage.getItem("token");
     console.log(value);
-    if (value == "All Doctors") {
+    if (value === "All Doctors") {
       viewDoctors();
     } else {
       fetch(
-        "http://localhost:5194/api/Doctor/GetAllDoctorsByStatus?status=" +
-          value,
+        "http://localhost:5194/api/Doctor/GetAllDoctorsByStatus?status=" + value,
         {
           method: "POST",
           headers: {
@@ -39,6 +41,7 @@ function Doctors() {
         });
     }
   };
+
   var viewDoctors = () => {
     const token = localStorage.getItem("token");
     fetch("http://localhost:5194/api/Doctor/GetAllDoctors", {
@@ -58,16 +61,17 @@ function Doctors() {
         console.log(err.error);
       });
   };
+
   return (
     <div className="Doctors">
       <div className="DoctorsHeader">
         <div>
           <h2>Doctors</h2>
         </div>
-        <div className="Filter">
+        <div className="Filter d-flex align-items-center">
           <span>Search By</span>
           <select
-            className="doctorsFilter"
+            className="doctorsFilter ml-2"
             onChange={(event) => {
               GetUsersByStatus(event.target.value);
             }}
@@ -76,8 +80,8 @@ function Doctors() {
             <option value="Approved">Approved Doctors</option>
             <option value="Not Approved">Not Approved Doctors</option>
           </select>
-          <div className="filterDiv">
-            <img src={filtericon} />
+          <div className="filterDiv ml-2">
+            <img src={filtericon} alt="Filter Icon" />
           </div>
         </div>
       </div>
@@ -86,7 +90,7 @@ function Doctors() {
           <tr className="headerRow">
             <th>S.NO</th>
             <th>Doctor Name</th>
-            <th className="smalldoc">Specilization</th>
+            <th className="smalldoc">Specialization</th>
             <th className="smalldoc">License Number</th>
             <th className="smalldoc">Experience</th>
             <th className="smalldoc">Gender</th>
@@ -106,7 +110,7 @@ function Doctors() {
               <td className="smalldoc">{item.status}</td>
               <td>
                 <button
-                  className="profileViewButton userapprovalbutton"
+                  className="profileViewButton userapprovalbutton btn btn-primary"
                   onClick={(event) => {
                     navigate("/admin/doctor/" + item.user.id);
                   }}

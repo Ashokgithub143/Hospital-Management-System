@@ -20,7 +20,7 @@ function DoctorRegister() {
   });
   const [email, setEmail] = useState();
 
-  var register = () => {
+  const register = () => {
     console.log(doctor);
     fetch("http://localhost:5194/api/Doctor/DoctorRegister", {
       method: "POST",
@@ -38,7 +38,7 @@ function DoctorRegister() {
       }),
     })
       .then(async (data) => {
-        var myData = await data.json();
+        const myData = await data.json();
         localStorage.setItem("id", myData.id);
         localStorage.setItem("role", myData.role);
         localStorage.setItem("token", myData.token);
@@ -49,174 +49,177 @@ function DoctorRegister() {
         console.log(err.error);
       });
   };
+
   return (
-    <div className="EditDoctor">
-      <div className="EditDoctorDetails">
-        <div>
-          <h2>Doctor Registeration </h2>
-        </div>
-        <div className="updateDetails">
-          <div className="UpdateDetailsInfo">
-            <label className="UpdateDetailsInfolabel">Name</label>
-            <input
-              className="UpdateDetailsInfoInput"
-              type="text"
-              placeholder="Name"
-              onChange={(evet) => {
-                setUser({ ...doctor, name: evet.target.value });
-              }}
-            />
+    <div className="container">
+      <div className="EditDoctor">
+        <div className="EditDoctorDetails">
+          <h2>Doctor Registration</h2>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="form-group">
+                <label>Name</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Name"
+                  onChange={(event) => {
+                    setUser({ ...doctor, name: event.target.value });
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label>Specialization</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Specialization"
+                  onChange={(event) => {
+                    setUser({ ...doctor, specialization: event.target.value });
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label>Qualifications</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Qualifications"
+                  onChange={(event) => {
+                    setUser({ ...doctor, qualifications: event.target.value });
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label>License Number</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="License Number"
+                  onChange={(event) => {
+                    setUser({ ...doctor, licenseNumber: event.target.value });
+                  }}
+                />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <label>Experience</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Experience"
+                  onChange={(event) => {
+                    setUser({ ...doctor, experience: event.target.value });
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label>Address</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Address"
+                  onChange={(event) => {
+                    setUser({ ...doctor, address: event.target.value });
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label>Phone Number</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Phone Number"
+                  onChange={(event) => {
+                    setUser({ ...doctor, phoneNumber: event.target.value });
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label>Date of Birth</label>
+                <input
+                  className="form-control"
+                  type="date"
+                  placeholder="Date of Birth"
+                  onChange={(event) => {
+                    setUser({ ...doctor, dateOfBirth: event.target.value });
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label>Gender</label>
+                <select
+                  className="form-control"
+                  onChange={(event) => {
+                    setUser({ ...doctor, gender: event.target.value });
+                  }}
+                >
+                  <option>Other</option>
+                  <option>Female</option>
+                  <option>Male</option>
+                </select>
+              </div>
+            </div>
           </div>
-          <div className="UpdateDetailsInfo">
-            <label className="UpdateDetailsInfolabel">Specialization</label>
-            <input
-              className="UpdateDetailsInfoInput"
-              type="text"
-              placeholder="Specialization"
-              onChange={(evet) => {
-                setUser({ ...doctor, specialization: evet.target.value });
-              }}
-            />
+          <div className="row">
+            <div className="col-md-6">
+              <div className="form-group">
+                <label>Email</label>
+                <input
+                  className="form-control"
+                  type="email"
+                  placeholder="Email"
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <label>About</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="About"
+                  onChange={(event) => {
+                    setUser({ ...doctor, about: event.target.value });
+                  }}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="updateDetails">
-          <div className="UpdateDetailsInfo">
-            <label className="UpdateDetailsInfolabel">Qulifications</label>
+          <div className="form-group">
+            <label>Password</label>
             <input
-              className="UpdateDetailsInfoInput"
-              type="text"
-              placeholder="Qulifications"
-              onChange={(evet) => {
-                setUser({ ...doctor, qualifications: evet.target.value });
-              }}
-            />
-          </div>
-          <div className="UpdateDetailsInfo">
-            <label className="UpdateDetailsInfolabel">License Number</label>
-            <input
-              className="UpdateDetailsInfoInput"
-              type="text"
-              placeholder="License Number"
-              onChange={(evet) => {
-                setUser({ ...doctor, licenseNumber: evet.target.value });
-              }}
-            />
-          </div>
-        </div>
-        <div className="updateDetails">
-          <div className="UpdateDetailsInfo">
-            <label className="UpdateDetailsInfolabel">Experience</label>
-            <input
-              className="UpdateDetailsInfoInput"
-              type="text"
-              placeholder="Experience"
-              onChange={(evet) => {
-                setUser({ ...doctor, experience: evet.target.value });
-              }}
-            />
-          </div>
-          <div className="UpdateDetailsInfo">
-            <label className="UpdateDetailsInfolabel">Address</label>
-            <input
-              className="UpdateDetailsInfoInput"
-              type="text"
-              placeholder="Address"
-              onChange={(evet) => {
-                setUser({ ...doctor, address: evet.target.value });
-              }}
-            />
-          </div>
-        </div>
-        <div className="updateDetails">
-          <div className="UpdateDetailsInfo">
-            <label className="UpdateDetailsInfolabel">Phone Number</label>
-            <input
-              className="UpdateDetailsInfoInput smallLabel"
-              type="text"
-              placeholder="Phone Number"
-              onChange={(evet) => {
-                setUser({ ...doctor, phoneNumber: evet.target.value });
-              }}
-            />
-          </div>
-          <div className="UpdateDetailsInfo">
-            <label className="UpdateDetailsInfolabel ">Date of Birth</label>
-            <input
-              className="UpdateDetailsInfoInput smallLabel"
-              type="date"
-              placeholder="Date of Birth"
-              onChange={(evet) => {
-                setUser({ ...doctor, dateOfBirth: evet.target.value });
-              }}
-            />
-          </div>
-          <div className="UpdateDetailsInfo">
-            <label className="UpdateDetailsInfolabel ">Gender</label>
-            <select
-              className="UpdateDetailsInfoInput smallLabel"
-              onChange={(evet) => {
-                setUser({ ...doctor, gender: evet.target.value });
-              }}
-            >
-              <option>Other</option>
-              <option>Female</option>
-              <option>Male</option>
-            </select>
-          </div>
-        </div>
-        <div className="updateDetails">
-          <div className="UpdateDetailsInfo">
-            <label className="UpdateDetailsInfolabel ">Email</label>
-            <input
-              className="UpdateDetailsInfoInput"
-              type="email"
-              placeholder="Email"
-              onChange={(event) => {
-                setEmail(event.target.value);
-              }}
-            />
-          </div>
-          <div className="UpdateDetailsInfo">
-            <label className="UpdateDetailsInfolabel ">About</label>
-            <input
-              className="UpdateDetailsInfoInput"
-              type="text"
-              placeholder="About"
-              onChange={(evet) => {
-                setUser({ ...doctor, about: evet.target.value });
-              }}
-            />
-          </div>
-        </div>
-        <div className="updateDetails">
-          <div className="UpdateDetailsInfo">
-            <label className="UpdateDetailsInfolabel ">Password</label>
-            <input
-              className="UpdateDetailsInfoInput"
-              type="text"
+              className="form-control"
+              type="password"
               placeholder="Password"
-              onChange={(evet) => {
-                setUser({ ...doctor, passwordClear: evet.target.value });
+              onChange={(event) => {
+                setUser({ ...doctor, passwordClear: event.target.value });
               }}
             />
           </div>
-          <div className="UpdateDetailsInfo">
-            <button
-              className="deleteDoctor editDoctor submitButton"
-              onClick={register}
-            >
-              Register
-            </button>
-          </div>
-          <div className="UpdateDetailsInfo">
-            <button
-              className="deleteDoctor editDoctor submitButton"
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              Login
-            </button>
+          <div className="row">
+            <div className="col-md-6">
+              <button
+                className="btn btn-primary"
+                onClick={register}
+              >
+                Register
+              </button>
+            </div>
+            <div className="col-md-6">
+              <button
+                className="btn btn-secondary"
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Login
+              </button>
+            </div>
           </div>
         </div>
       </div>

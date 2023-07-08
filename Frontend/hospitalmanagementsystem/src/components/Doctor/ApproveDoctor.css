@@ -34,18 +34,18 @@
 }
 
 .viewProfile {
-  background-color: #045de9;
-  background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);
+  background-color: #8d04e9;
+  background-image: linear-gradient(315deg, rgb(212, 255, 0));
 }
 
 .ApproveProfile {
   background-color: #7ee8fa;
-  background-image: linear-gradient(315deg, #7ee8fa 0%, #80ff72 74%);
+  background-image: linear-gradient(315deg, #a872ff);
 }
 
 .editProfile {
   background-color: #5de6de;
-  background-image: linear-gradient(315deg, #5de6de 0%, #b58ecc 74%);
+  background-image: linear-gradient(315deg,  #8ebfcc 74%);
 }
 
 @media screen and (max-width: 600px) {

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PatientImage from "../images/PatientProfile.avif";
 import { useNavigate, useParams } from "react-router-dom";
 import "../Patient/PatientProfile.css";
 
@@ -61,7 +60,7 @@ function DoctorProfile() {
       </div>
       <div className="aboutDoctor aboutPatient">
         <div>
-          <img src={PatientImage} className="doctorImage" />
+          <img src={""} className="doctorImage" />
         </div>
         <div>
           <div className="description">

@@ -7,19 +7,22 @@ function DoctorView() {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [user, setUser] = useState([]);
+
   useEffect(() => {
     getDoctorDetails();
     getUserDetails();
   }, []);
+
   var getDoctorDetails = () => {
+    var token = localStorage.getItem("token");
     fetch(
-      "http://localhost:5194/api/Doctor/GetDoctor?id=" +
-        localStorage.getItem("id"),
+      "http://localhost:5194/api/Doctor/GetDoctor?id=" + localStorage.getItem("id"),
       {
         method: "POST",
         headers: {
           accept: "text/plain",
           "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
         },
       }
     )
@@ -31,10 +34,10 @@ function DoctorView() {
         console.log(err.error);
       });
   };
+
   var getUserDetails = () => {
     fetch(
-      "http://localhost:5194/api/User/GetAllUserDetails?id=+" +
-        localStorage.getItem("id"),
+      "http://localhost:5194/api/User/GetAllUserDetails?id=+" + localStorage.getItem("id"),
       {
         method: "POST",
         headers: {
@@ -51,6 +54,7 @@ function DoctorView() {
         console.log(err.error);
       });
   };
+
   return (
     <div className="Doctor">
       <div className="doctorHeader">
@@ -60,7 +64,7 @@ function DoctorView() {
       </div>
       <div className="aboutDoctor">
         <div>
-          <img src={DoctorImage} className="doctorImage" />
+          <img src={DoctorImage} className="doctorImage" alt="Doctor" />
         </div>
         <div>
           <div className="description">
@@ -78,7 +82,7 @@ function DoctorView() {
               </p>
               <div className="doctorInfo">
                 <div className="doctorInfoData">
-                  <h5>Specilization</h5>
+                  <h5>Specialization</h5>
                   <span>{data.specialization}</span>
                 </div>
                 <div className="doctorInfoData">
@@ -86,7 +90,7 @@ function DoctorView() {
                   <span>{data.licenseNumber}</span>
                 </div>
                 <div className="doctorInfoData">
-                  <h5>Qulifications</h5>
+                  <h5>Qualifications</h5>
                   <span>{data.qualifications}</span>
                 </div>
                 <div className="doctorInfoData">
@@ -109,4 +113,5 @@ function DoctorView() {
     </div>
   );
 }
+
 export default DoctorView;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function PatientRegister() {
@@ -13,9 +13,9 @@ function PatientRegister() {
     bloodGroup: "",
     passwordClear: "",
   });
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState("");
 
-  var register = () => {
+  const register = () => {
     console.log(patient);
     fetch("http://localhost:5194/api/Patient/PatinetRegister", {
       method: "POST",
@@ -33,7 +33,7 @@ function PatientRegister() {
       }),
     })
       .then(async (data) => {
-        var myData = await data.json();
+        const myData = await data.json();
         localStorage.setItem("id", myData.id);
         localStorage.setItem("role", myData.role);
         localStorage.setItem("token", myData.token);
@@ -44,128 +44,129 @@ function PatientRegister() {
         console.log(err.error);
       });
   };
+
   return (
-    <div className="EditDoctor">
-      <div className="EditDoctorDetails">
-        <div>
-          <h2>Patient Registeration </h2>
-        </div>
-        <div className="updateDetails">
-          <div className="UpdateDetailsInfo">
-            <label className="UpdateDetailsInfolabel">Name</label>
-            <input
-              className="UpdateDetailsInfoInput"
-              type="text"
-              placeholder="Name"
-              onChange={(evet) => {
-                setUser({ ...patient, name: evet.target.value });
-              }}
-            />
-          </div>
-          <div className="updateDetails">
-            <div className="UpdateDetailsInfo">
-              <label className="UpdateDetailsInfolabel">Address</label>
-              <input
-                className="UpdateDetailsInfoInput"
-                type="text"
-                placeholder="Address"
-                onChange={(evet) => {
-                  setUser({ ...patient, address: evet.target.value });
-                }}
-              />
-            </div>
-          </div>
-          <div className="updateDetails">
-            <div className="UpdateDetailsInfo">
-              <label className="UpdateDetailsInfolabel">Phone Number</label>
-              <input
-                className="UpdateDetailsInfoInput smallLabel"
-                type="text"
-                placeholder="Phone Number"
-                onChange={(evet) => {
-                  setUser({ ...patient, phoneNumber: evet.target.value });
-                }}
-              />
-            </div>
-            <div className="UpdateDetailsInfo">
-              <label className="UpdateDetailsInfolabel ">Date of Birth</label>
-              <input
-                className="UpdateDetailsInfoInput smallLabel"
-                type="date"
-                placeholder="Date of Birth"
-                onChange={(evet) => {
-                  setUser({ ...patient, dateOfBirth: evet.target.value });
-                }}
-              />
-            </div>
-            <div className="UpdateDetailsInfo">
-              <label className="UpdateDetailsInfolabel ">Gender</label>
-              <select
-                className="UpdateDetailsInfoInput smallLabel"
-                onChange={(evet) => {
-                  setUser({ ...patient, gender: evet.target.value });
-                }}
-              >
-                <option>Other</option>
-                <option>Female</option>
-                <option>Male</option>
-              </select>
-            </div>
-          </div>
-          <div className="updateDetails">
-            <div className="UpdateDetailsInfo">
-              <label className="UpdateDetailsInfolabel ">Email</label>
-              <input
-                className="UpdateDetailsInfoInput"
-                type="email"
-                placeholder="Email"
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
-              />
-            </div>
-            <div className="UpdateDetailsInfo"></div>
-            <div className="updateDetails">
-              <div className="UpdateDetailsInfo">
-                <label className="UpdateDetailsInfolabel ">Password</label>
+    <div className="container">
+      <div className="EditDoctor">
+        <div className="EditDoctorDetails">
+          <h2>Patient Registration</h2>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="form-group">
+                <label>Name</label>
                 <input
-                  className="UpdateDetailsInfoInput"
+                  className="form-control"
                   type="text"
-                  placeholder="Password"
-                  onChange={(evet) => {
-                    setUser({ ...patient, passwordClear: evet.target.value });
+                  placeholder="Name"
+                  onChange={(event) => {
+                    setUser({ ...patient, name: event.target.value });
                   }}
                 />
               </div>
-              <div className="UpdateDetailsInfo">
-                <label className="UpdateDetailsInfolabel ">Blood Group</label>
+              <div className="form-group">
+                <label>Address</label>
                 <input
-                  className="UpdateDetailsInfoInput"
+                  className="form-control"
+                  type="text"
+                  placeholder="Address"
+                  onChange={(event) => {
+                    setUser({ ...patient, address: event.target.value });
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label>Phone Number</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Phone Number"
+                  onChange={(event) => {
+                    setUser({ ...patient, phoneNumber: event.target.value });
+                  }}
+                />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <label>Date of Birth</label>
+                <input
+                  className="form-control"
+                  type="date"
+                  placeholder="Date of Birth"
+                  onChange={(event) => {
+                    setUser({ ...patient, dateOfBirth: event.target.value });
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label>Gender</label>
+                <select
+                  className="form-control"
+                  onChange={(event) => {
+                    setUser({ ...patient, gender: event.target.value });
+                  }}
+                >
+                  <option>Other</option>
+                  <option>Female</option>
+                  <option>Male</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Email</label>
+                <input
+                  className="form-control"
+                  type="email"
+                  placeholder="Email"
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="form-group">
+                <label>Password</label>
+                <input
+                  className="form-control"
+                  type="password"
+                  placeholder="Password"
+                  onChange={(event) => {
+                    setUser({ ...patient, passwordClear: event.target.value });
+                  }}
+                />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <label>Blood Group</label>
+                <input
+                  className="form-control"
                   type="text"
                   placeholder="Blood Group"
-                  onChange={(evet) => {
-                    setUser({ ...patient, bloodGroup: evet.target.value });
+                  onChange={(event) => {
+                    setUser({ ...patient, bloodGroup: event.target.value });
                   }}
                 />
               </div>
-              <div className="UpdateDetailsInfo">
-                <button
-                  className="deleteDoctor editDoctor submitButton"
-                  onClick={register}
-                >
-                  Register
-                </button>
-              </div>
-              <div className="UpdateDetailsInfo">
-                <button
-                  className="deleteDoctor editDoctor submitButton"
-                  onClick={() => {
-                    navigate("/");
-                  }}
-                >
-                  Login
-                </button>
-              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <button className="btn btn-primary" onClick={register}>
+                Register
+              </button>
+            </div>
+            <div className="col-md-6">
+              <button
+                className="btn btn-secondary"
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Login
+              </button>
             </div>
           </div>
         </div>

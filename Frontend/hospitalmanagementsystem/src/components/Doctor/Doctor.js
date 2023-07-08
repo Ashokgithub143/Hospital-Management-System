@@ -8,10 +8,12 @@ function Doctor() {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [user, setUser] = useState([]);
+
   useEffect(() => {
     getUserDetails();
     getDoctorDetails();
   }, []);
+
   var getDoctorDetails = () => {
     var token = localStorage.getItem("token");
     fetch("http://localhost:5194/api/Doctor/GetDoctor?id=" + id, {
@@ -30,6 +32,7 @@ function Doctor() {
         console.log(err.error);
       });
   };
+
   var getUserDetails = () => {
     var token = localStorage.getItem("token");
     fetch("http://localhost:5194/api/User/GetAllUserDetails?id=+" + id, {
@@ -48,39 +51,61 @@ function Doctor() {
         console.log(err.error);
       });
   };
+
+  var DeleteUserDetails = () => {
+    var token = localStorage.getItem("token");
+    fetch("http://localhost:5194/api/Doctor/Delete?id=" + id, {
+      method: "DELETE",
+      headers: {
+        accept: "text/plain",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then(async (data) => {
+        var myData = await data.json();
+        alert("The user has been deleted");
+        console(myData);
+      })
+      .catch((err) => {
+        console.log(err.error);
+      });
+  };
+
   return (
     <div className="Doctor">
       <div className="doctorHeader">
-        <div className="">
+        <div>
           <h2>Doctor Information</h2>
         </div>
         <div>
           <button
-            className="deleteDoctor editDoctor"
+            className="deleteDoctor editDoctor bg-primary"
             onClick={() => {
               navigate("/admin/editdoctor/" + user.id);
             }}
           >
             Edit Doctor
           </button>
-          <button className="deleteDoctor">Delete Doctor</button>
+          <button className="deleteDoctor bg-danger" onClick={DeleteUserDetails}>
+            Delete Doctor
+          </button>
         </div>
       </div>
       <div className="aboutDoctor">
         <div>
-          <img src={DoctorImage} className="doctorImage" />
+          <img src={DoctorImage} className="doctorImage" alt="Doctor" />
         </div>
         <div>
           <div className="description">
             <div></div>
             <div>
               <h3>Name - {data.name}</h3>
-
               <h4>About Doctor</h4>
               <p>{data.about}</p>
               <div className="doctorInfo">
                 <div className="doctorInfoData">
-                  <h5>Specilization</h5>
+                  <h5>Specialization</h5>
                   <span>{data.specialization}</span>
                 </div>
                 <div className="doctorInfoData">
@@ -88,7 +113,7 @@ function Doctor() {
                   <span>{data.licenseNumber}</span>
                 </div>
                 <div className="doctorInfoData">
-                  <h5>Qulifications</h5>
+                  <h5>Qualifications</h5>
                   <span>{data.qualifications}</span>
                 </div>
                 <div className="doctorInfoData">
@@ -111,4 +136,5 @@ function Doctor() {
     </div>
   );
 }
+
 export default Doctor;

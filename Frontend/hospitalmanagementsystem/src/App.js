@@ -10,6 +10,7 @@ import PatientRegister from "./components/Register/PatientRegister";
 import AdminProtected from "./components/Protected/AdminProtected";
 import PatientProtected from "./components/Protected/PatientProtected";
 import DoctorProtected from "./components/Protected/DoctorProtected";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   var token;
@@ -49,6 +50,9 @@ function App() {
           <Route path="/patientregister" element={<PatientRegister />} />
         </Routes>
       </BrowserRouter>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     </div>
   );
 }

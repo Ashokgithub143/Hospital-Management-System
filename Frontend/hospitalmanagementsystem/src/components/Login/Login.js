@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../Login/Login.css";
 import { useNavigate } from "react-router-dom";
-import loginImage from "../images/hospital-logo.jpg";
+import loginImage from "../images/hospital-logo.png";
 
 function Login(props) {
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
   const navigate = useNavigate();
   var [user, setUser] = useState({
     email: "",
@@ -11,7 +14,6 @@ function Login(props) {
   });
 
   var login = () => {
-    console.log(user);
     fetch("http://localhost:5194/api/User/Login", {
       method: "POST",
       headers: {
@@ -42,7 +44,7 @@ function Login(props) {
       <div className="LoginTitle">
         <h1>Login</h1>
         <p className="loginmessage">
-          Stay connected and improve your treatment’s efficiency together
+          <b>Stay connected and improve your treatment’s efficiency together</b>
         </p>
       </div>
       <div className="loginRquestfields">
@@ -50,16 +52,16 @@ function Login(props) {
           className="inputfield"
           type="email"
           placeholder="Email"
-          onChange={(evet) => {
-            setUser({ ...user, email: evet.target.value });
+          onChange={(event) => {
+            setUser({ ...user, email: event.target.value });
           }}
         />
         <input
           className="inputfield"
           type="password"
           placeholder="Password"
-          onChange={(evet) => {
-            setUser({ ...user, password: evet.target.value });
+          onChange={(event) => {
+            setUser({ ...user, password: event.target.value });
           }}
         />
         <button

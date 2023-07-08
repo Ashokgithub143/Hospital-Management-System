@@ -11,13 +11,15 @@ function ApproveDoctor() {
   const [id, setId] = useState();
   const [status, setStatus] = useState();
   const [data, setData] = useState([]);
+
   useEffect(() => {
     viewDoctors();
   }, []);
+
   var GetUsersByStatus = (value) => {
     var token = localStorage.getItem("token");
     console.log(value);
-    if (value == "All Doctors") {
+    if (value === "All Doctors") {
       viewDoctors();
     } else {
       fetch(
@@ -42,6 +44,7 @@ function ApproveDoctor() {
         });
     }
   };
+
   var viewDoctors = () => {
     var token = localStorage.getItem("token");
     fetch("http://localhost:5194/api/Doctor/GetAllDoctors", {
@@ -61,6 +64,7 @@ function ApproveDoctor() {
         console.log(err.error);
       });
   };
+
   var ChangeStatus = (data) => {
     var token = localStorage.getItem("token");
     fetch("http://localhost:5194/api/Doctor/ChangeDoctorStatus", {
@@ -80,6 +84,7 @@ function ApproveDoctor() {
         console.log(err.error);
       });
   };
+
   const ApproveStyle = {
     backgroundColor: "#3bb78f",
     backgroundImage: "linear-gradient(315deg, #3bb78f 0%, #0bab64 74%)",
@@ -89,97 +94,98 @@ function ApproveDoctor() {
     backgroundColor: "#c62128",
     backgroundImage: "linear-gradient(147deg, #c62128 0%, #a00000 74%)",
   };
+  
+
   return (
     <div className="ApproveDoctor">
-      <div className="DoctorsHeader">
-        <div>
-          <h2>Update Doctor Status</h2>
+      <div className="container">
+        <div className="row DoctorsHeader">
+          <div className="col">
+            <h2>Update Doctor Status</h2>
+          </div>
+          <div className="col-md-auto Filter">
+            <span>Search By</span>
+            <select
+              className="form-select doctorsFilter"
+              onChange={(event) => {
+                GetUsersByStatus(event.target.value);
+              }}
+            >
+              <option value="All Doctors">All Doctors</option>
+              <option value="Approved">Approved Doctors</option>
+              <option value="Not Approved">Not Approved Doctors</option>
+            </select>
+          </div>
         </div>
-        <div className="Filter">
-          <span>Search By</span>
-          <select
-            className="doctorsFilter"
-            onChange={(event) => {
-              GetUsersByStatus(event.target.value);
-            }}
-          >
-            <option value="All Doctors">All Doctors</option>
-            <option value="Approved">Approved Doctors</option>
-            <option value="Not Approved">Not Approved Doctors</option>
-          </select>
-          <div className="filterDiv">
-            <img src={filtericon} />
+        <div className="row">
+          <div className="col">
+            <table className="table table-bordered">
+              <thead>
+                <tr className="headerRow">
+                  <th className="smalldoc">S.NO</th>
+                  <th>Doctor Name</th>
+                  <th className="smalldoc">Status</th>
+                  <th className="smalldoc">Edit</th>
+                  <th className="smalldoc">View</th>
+                  <th>Change Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((item, index) => (
+                  <tr key={index}>
+                    <td className="serialNo">{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>{item.status}</td>
+                    <td className="smalldoc">
+                      <button
+                        className="btn btn-danger deleteDoctor editDoctor userapprovalbutton editProfile"
+                        onClick={() => {
+                          navigate("/admin/editdoctor/" + item.doctorId);
+                        }}
+                      >
+                        Edit Doctor
+                      </button>
+                    </td>
+                    <td className="smalldoc">
+                      <button
+                        className="btn btn-primary deleteDoctor userapprovalbutton editProfile"
+                        onClick={(event) => {
+                          navigate("/admin/doctor/" + item.user.id);
+                        }}
+                      >
+                        View
+                      </button>
+                    </td>
+                    
+                    <td>
+                      <button
+                        className="btn btn-primary profileViewButton userapprovalbutton"
+                        style={
+                          item.status === "Not Approved"
+                            ? ApproveStyle
+                            : NotApproveStyle
+                        }
+                        onClick={() => {
+                          var userStatus =
+                            item.status === "Approved"
+                              ? "Not Approved"
+                              : "Approved";
+                          ChangeStatus({
+                            doctorId: item.doctorId,
+                            updatedStatus: userStatus,
+                          });
+                        }}
+                      >
+                        {item.status === "Approved" ? "Disapprove" : "Approve"}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-      <table className="table">
-        <thead>
-          <tr className="headerRow">
-            <th className="smalldoc">S.NO</th>
-            <th>Doctor Name</th>
-            <th className="smalldoc">Status</th>
-            <th className="smalldoc">Edit</th>
-            <th className="smalldoc">View</th>
-            <th className="smalldoc">Delete</th>
-            <th>Change Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
-              <th className="serialNo">{index + 1}</th>
-              <td>{item.name}</td>
-              <td>{item.status}</td>
-              <td className="smalldoc">
-                {" "}
-                <button
-                  className="deleteDoctor editDoctor userapprovalbutton editProfile"
-                  onClick={() => {
-                    navigate("/admin/editdoctor/" + item.doctorId);
-                  }}
-                >
-                  Edit Doctor
-                </button>
-              </td>
-              <td className="smalldoc">
-                <button
-                  className="deleteDoctor userapprovalbutton editProfile"
-                  onClick={(event) => {
-                    navigate("/admin/doctor/" + item.user.id);
-                  }}
-                >
-                  View
-                </button>
-              </td>
-              <td className="smalldoc">
-                <button className="profileViewButton userapprovalbutton editProfile">
-                  Delete
-                </button>
-              </td>
-              <td>
-                <button
-                  className="profileViewButton userapprovalbutton"
-                  style={
-                    item.status == "Not Approved"
-                      ? ApproveStyle
-                      : NotApproveStyle
-                  }
-                  onClick={() => {
-                    var userStatus =
-                      item.status == "Approved" ? "Not Approved" : "Approved";
-                    ChangeStatus({
-                      doctorId: item.doctorId,
-                      updatedStatus: userStatus,
-                    });
-                  }}
-                >
-                  {item.status == "Approved" ? "Disapprove" : "Approve"}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   );
 }

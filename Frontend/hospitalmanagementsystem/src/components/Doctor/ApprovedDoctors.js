@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import "../Doctor/Doctors.css";
 import { Link, Routes, Route, json, useNavigate } from "react-router-dom";
 import filtericon from "../images/filter-filled-tool-symbol.png";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 function ApprovedDoctors() {
   const navigate = useNavigate();
   const [id, setId] = useState();
   const [data, setData] = useState([]);
+  
   useEffect(() => {
     GetUsersByStatus();
   }, []);
+  
   var GetUsersByStatus = () => {
     fetch(
       "http://localhost:5194/api/Doctor/GetAllDoctorsByStatus?status=Approved",
@@ -30,6 +32,7 @@ function ApprovedDoctors() {
         console.log(err);
       });
   };
+  
   var viewDoctors = () => {
     fetch("http://localhost:5194/api/Doctor/GetAllDoctors", {
       method: "GET",
@@ -47,6 +50,7 @@ function ApprovedDoctors() {
         console.log(err.error);
       });
   };
+  
   return (
     <div className="Doctors">
       <div className="DoctorsHeader">
@@ -54,12 +58,12 @@ function ApprovedDoctors() {
           <h2>Doctors</h2>
         </div>
       </div>
-      <table className="table">
+      <table className="table table-striped">
         <thead>
           <tr className="headerRow">
             <th>S.NO</th>
             <th>Doctor Name</th>
-            <th className="smalldoc">Specilization</th>
+            <th className="smalldoc">Specialization</th>
             <th className="smalldoc">License Number</th>
             <th className="smalldoc">Experience</th>
             <th className="smalldoc">Gender</th>
@@ -69,7 +73,7 @@ function ApprovedDoctors() {
         <tbody>
           {data.map((item, index) => (
             <tr key={index}>
-              <th className="serialNo">{index + 1}</th>
+              <td className="serialNo">{index + 1}</td>
               <td>{item.name}</td>
               <td className="smalldoc">{item.specialization}</td>
               <td className="smalldoc">{item.licenseNumber}</td>
@@ -77,7 +81,7 @@ function ApprovedDoctors() {
               <td className="smalldoc">{item.gender}</td>
               <td>
                 <button
-                  className="profileViewButton userapprovalbutton"
+                  className="btn btn-primary profileViewButton userapprovalbutton"
                   onClick={(event) => {
                     navigate("/patient/doctorprofiles/" + item.user.id);
                   }}
